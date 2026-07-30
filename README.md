@@ -4,7 +4,9 @@
 
 Este repositorio contiene el desarrollo de una prueba técnica cuyo objetivo es implementar una aplicación web para el registro y gestión de entrenamientos deportivos utilizando **Vue 3**, **TypeScript** y **Firebase Firestore**.
 
-La aplicación permitirá registrar, visualizar, editar y eliminar entrenamientos, manteniendo la información sincronizada en tiempo real mediante Firebase. Además, el proyecto será desplegado en **Firebase Hosting** y versionado utilizando **Git**.
+La aplicación permite registrar, visualizar, editar y eliminar entrenamientos, manteniendo la información sincronizada en tiempo real mediante Firebase Firestore. Además, se encuentra desplegada en **Firebase Hosting**.
+
+---
 
 ## Objetivos
 
@@ -13,6 +15,18 @@ La aplicación permitirá registrar, visualizar, editar y eliminar entrenamiento
 - Mostrar el historial de entrenamientos en tiempo real utilizando `onSnapshot()`.
 - Aplicar buenas prácticas de desarrollo, organización del código y control de versiones.
 - Desplegar la aplicación en Firebase Hosting.
+
+---
+
+## Funcionalidades
+
+- Registro de entrenamientos.
+- Edición de entrenamientos.
+- Eliminación de entrenamientos.
+- Historial actualizado en tiempo real mediante `onSnapshot`.
+- Interfaz desarrollada con componentes reutilizables.
+
+---
 
 ## Tecnologías
 
@@ -23,11 +37,57 @@ La aplicación permitirá registrar, visualizar, editar y eliminar entrenamiento
 - Vite
 - Git y GitHub
 
+---
+
+## Instalación
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd entrenamientos-app
+npm install
+```
+
+---
+
+## Ejecutar el proyecto
+
+```bash
+npm run dev
+```
+
+---
+
+## Compilar para producción
+
+```bash
+npm run build
+```
+
+---
+
+## Despliegue
+
+```bash
+firebase deploy
+```
+
+---
+
+## Aplicación desplegada
+
+https://entrenamientos-app-27e2f.web.app
+
+---
+
 ## Estado del proyecto
 
-En desarrollo.
+✅ Finalizado.
 
-La aplicación se encuentra en proceso de implementación siguiendo los requisitos establecidos para la prueba técnica.
+---
+
+## Autor
+
+Juan Felipe Narváez Amaya
 
 ---
 
