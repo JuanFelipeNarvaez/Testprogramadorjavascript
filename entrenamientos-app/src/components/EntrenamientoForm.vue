@@ -141,9 +141,26 @@ form{
 }
 
 button{
-  padding:10px;
+  width:100%;
+  padding:12px;
   border:none;
   border-radius:8px;
   cursor:pointer;
+  background-color: #28a745;
+  color :white;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
 }
 </style>
