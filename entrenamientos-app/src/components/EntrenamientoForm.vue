@@ -1,43 +1,85 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import type { Entrenamiento } from "../interfaces/Entrenamiento";
-import { guardarEntrenamiento } from "../services/entrenamientoService";
+import {
+  guardarEntrenamiento,
+  actualizarEntrenamiento
+} from "../services/entrenamientoService";
 
-// Modelo del formulario
+const props = defineProps<{
+  entrenamientoEditar: Entrenamiento | null;
+}>();
+
+const emit = defineEmits<{
+  (e: "cancelar"): void;
+}>();
+
 const entrenamiento = ref<Entrenamiento>({
   fecha: "",
   duracion: 0,
   distancia: 0,
 });
 
-// Guardar entrenamiento
+watch(
+  () => props.entrenamientoEditar,
+  (nuevo) => {
+    if (nuevo) {
+      entrenamiento.value = { ...nuevo };
+    } else {
+      entrenamiento.value = {
+        fecha: "",
+        duracion: 0,
+        distancia: 0,
+      };
+    }
+  },
+  { immediate: true }
+);
+
 const guardar = async () => {
   try {
-    await guardarEntrenamiento(entrenamiento.value);
+    if (entrenamiento.value.id) {
+      await actualizarEntrenamiento(entrenamiento.value);
+      alert("Entrenamiento actualizado correctamente.");
+    } else {
+      await guardarEntrenamiento(entrenamiento.value);
+      alert("Entrenamiento registrado correctamente.");
+    }
 
-    alert("Entrenamiento registrado correctamente.");
-
-    // Limpiar formulario
     entrenamiento.value = {
       fecha: "",
       duracion: 0,
       distancia: 0,
     };
+
+    emit("cancelar");
   } catch (error) {
     console.error(error);
-    alert("Ocurrió un error al guardar.");
+    alert("Ocurrió un error.");
   }
+};
+
+const cancelar = () => {
+  entrenamiento.value = {
+    fecha: "",
+    duracion: 0,
+    distancia: 0,
+  };
+
+  emit("cancelar");
 };
 </script>
 
 <template>
   <div class="formulario">
-    <h2>Registro de Entrenamientos</h2>
+    <h2>
+      {{ entrenamiento.id ? "Editar Entrenamiento" : "Registro de Entrenamientos" }}
+    </h2>
 
     <form @submit.prevent="guardar">
+
       <div>
         <label>Fecha</label>
-
         <input
           type="date"
           v-model="entrenamiento.fecha"
@@ -46,8 +88,7 @@ const guardar = async () => {
       </div>
 
       <div>
-        <label>Duración (minutos)</label>
-
+        <label>Duración</label>
         <input
           type="number"
           min="1"
@@ -57,8 +98,7 @@ const guardar = async () => {
       </div>
 
       <div>
-        <label>Distancia (km)</label>
-
+        <label>Distancia</label>
         <input
           type="number"
           step="0.1"
@@ -69,8 +109,17 @@ const guardar = async () => {
       </div>
 
       <button type="submit">
-        Guardar entrenamiento
+        {{ entrenamiento.id ? "Actualizar entrenamiento" : "Guardar entrenamiento" }}
       </button>
+
+      <button
+        v-if="entrenamiento.id"
+        type="button"
+        @click="cancelar"
+      >
+        Cancelar
+      </button>
+
     </form>
   </div>
 </template>
@@ -85,32 +134,14 @@ const guardar = async () => {
   box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 
-h2{
-  text-align:center;
-  margin-bottom:20px;
-}
-
 form{
   display:flex;
   flex-direction:column;
   gap:15px;
 }
 
-label{
-  display:block;
-  margin-bottom:5px;
-  font-weight:bold;
-}
-
-input{
-  width:100%;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
 button{
-  padding:12px;
+  padding:10px;
   border:none;
   border-radius:8px;
   cursor:pointer;
