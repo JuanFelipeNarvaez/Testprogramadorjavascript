@@ -59,6 +59,8 @@ button {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  background-color: #007bff;
+  color: white;
 }
 
 .eliminar {
